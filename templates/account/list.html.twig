@@ -10,18 +10,12 @@
 
 <div class="example-wrapper">
     <ul>
-        <h2>Etudiants</h2>
-        {% for etudiant in etudiants %}
-        <li>{{ etudiant.email }}
-        <a href="{{ path('rdv_take', {'id' : etudiant.id}) }}"> Vue étudiante</a>
+        <h2>Comptes</h2>
+        {% for user in users %}
+        <li>{{ user.email }}, {{ user.password }}, {{ user.roles.0|raw }}
         </li>
         {% endfor %}
-        <h2>Professeurs</h2>
-        {% for professeur in professeurs %}
-        <li>{{ professeur.email }}
-        <a href="{{ path('rdv_add', {'id' : professeur.id }) }}"> Créer rdv </a>
-        </li>
-        {% endfor %}
+
     </ul>
 </div>
 {% endblock %}
