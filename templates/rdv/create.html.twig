@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RdvController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <ul>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.heureDebut) }}
+        {{ form_row(form.heureFin) }}
+        {{ form_row(form.submit) }}
+
+
+        <div hidden="hidden">
+            {{ form_rest(form) }}
+        </div>
+        {{ form_end(form, {render_rest: false}) }}
+    </ul>
+</div>
+{% endblock %}

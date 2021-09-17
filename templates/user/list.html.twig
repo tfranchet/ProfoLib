@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RdvController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <ul>
+        <h2>Etudiants</h2>
+        {% for etudiant in etudiants %}
+        <li>{{ etudiant.email }}
+        <a href="{{ path('rdv_take', {'id' : etudiant.id}) }}"> Vue étudiante</a>
+        </li>
+        {% endfor %}
+        <h2>Professeurs</h2>
+        {% for professeur in professeurs %}
+        <li>{{ professeur.email }}
+        <a href="{{ path('rdv_add', {'id' : professeur.id }) }}"> Créer rdv </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
