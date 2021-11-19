@@ -35,6 +35,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Etudiant::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $profile;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Professeur::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $profId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,5 +132,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getProfile(): ?Object
+    {
+
+        return $this->profile;
+
+    }
+
+    public function setProfile(?Object $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getProfId(): ?Professeur
+    {
+        return $this->profId;
+    }
+
+    public function setProfId(?Professeur $profId): self
+    {
+        $this->profId = $profId;
+
+        return $this;
     }
 }

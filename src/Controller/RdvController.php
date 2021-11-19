@@ -6,6 +6,8 @@ use App\Entity\Etudiant;
 use App\Entity\Professeur;
 use App\Entity\Rdv;
 use App\Form\RdvType;
+use App\Repository\ProfesseurRepository;
+use App\Repository\RdvRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,11 +29,15 @@ class RdvController extends AbstractController
     }
 
     /**
-     * @Route("/list", name="rdvlist")
+     * @Route("/list/{id}", name="rdvlist")
      */
-    public function showList(): Response
+    public function showList(Professeur $id = null): Response
     {
-        $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findAll();
+        if($id != null){
+            $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findByProfesseur($id);
+        } else {
+            $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findAll();
+        }
         return $this->render('rdv/list.html.twig', [
             'rdvs' => $rdvs,
             'idetud' => 0,

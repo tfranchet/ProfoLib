@@ -18,13 +18,14 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'etudiant' => 'ROLE_ETUDIANT',
-                    'professeur' => 'ROLE_PROFESSEUR'
+                    'professeur' => 'ROLE_PROFESSEUR',
+                    'admin' => 'ROLE_ADMIN',
                 ],
                 'label' => 'role',
                 'multiple' => true,
             ])
             ->add('password')
-            ->add('submit', SubmitType::class, ['label' => 'Create Task'])
+            ->add('submit', SubmitType::class, ['label' => 'Creer le compte'])
         ;
     }
 

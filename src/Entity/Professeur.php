@@ -34,6 +34,11 @@ class Professeur
      */
     private $rdvs;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="profId", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->rdvs = new ArrayCollection();
@@ -94,6 +99,28 @@ class Professeur
                 $rdv->setProfesseur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setProfId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getProfId() !== $this) {
+            $user->setProfId($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

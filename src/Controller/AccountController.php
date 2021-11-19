@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\RdvType;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -37,6 +38,21 @@ class AccountController extends AbstractController
             ));
             $acc->setEmail($form->get("email")->getData());
             $entityManager = $this->getDoctrine()->getManager();
+            $role = $form->get("roles")->getData();
+            if(in_array('ROLE_ETUDIANT', $role)){
+                $etudiant = new Etudiant();
+                $etudiant->setEmail($form->get("email")->getData());
+                $etudiant->setUser($acc);
+                $etudiant->setName($form->get("email")->getData());
+                $entityManager->persist($etudiant);
+            }
+            else if(in_array('ROLE_PROFESSEUR', $role)){
+                $etudiant = new Professeur();
+                $etudiant->setEmail($form->get("email")->getData());
+                $etudiant->setUser($acc);
+                $etudiant->setName($form->get("email")->getData());
+                $entityManager->persist($etudiant);
+            }
             $entityManager->persist($acc);
             $entityManager->flush();
             $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();

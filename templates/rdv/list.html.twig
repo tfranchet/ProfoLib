@@ -8,11 +8,14 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
+    {% include '/header.html.twig' %}
 <div class="example-wrapper">
     <ul>
         {% for rdv in rdvs %}
-        <li>{{ rdv.id }}
+        <li>{{ rdv.professeur.name }} {{ rdv.heureDebut|date("H:i") }} - {{ rdv.heureFin|date("H:i m/d/Y") }}
+            {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('rdv_rm', {'id':rdv.id}) }}"> remove</a>
+            {% endif %}
             {% if idetud != 0 %}
                 <a href="{{ path('rdv_take_2', {'id':idetud, 'id2':rdv.id}) }}"> prendre rdv</a>
             {% endif %}
