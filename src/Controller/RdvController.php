@@ -36,12 +36,33 @@ class RdvController extends AbstractController
         if($id != null){
             $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findByProfesseur($id);
         } else {
-            $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findAll();
+            $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findNotTaken();
         }
         return $this->render('rdv/list.html.twig', [
             'rdvs' => $rdvs,
             'idetud' => 0,
         ]);
+    }
+
+ /**
+     * @Route("/myrdvs/{id}", name="mesrdv")
+     */
+    public function getselfrdv($id = null): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRoles()[0] == 'ROLE_ETUDIANT'){
+            $rdvs = $entityManager->getRepository(Etudiant::class)->find($id)->getRdvs();
+            return $this->render('rdv/list_etu.html.twig', [
+                'rdvs' => $rdvs,
+            ]);
+        }
+        if($this->getUser()->getRoles()[0] == 'ROLE_PROFESSEUR'){
+            $rdvs = $entityManager->getRepository(Professeur::class)->find($id)->getRdvs();
+            return $this->render('rdv/list_pro.html.twig', [
+                'rdvs' => $rdvs,
+            ]);
+        }
+        return $this->showList();
     }
 
     /**
@@ -60,7 +81,7 @@ class RdvController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rdv);
             $entityManager->flush();
-            $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findAll();
+            $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findNotTaken();
             return $this->render('rdv/list.html.twig', [
                 'rdvs' => $rdvs,
                 'idetud' => 0,
@@ -88,7 +109,7 @@ class RdvController extends AbstractController
      */
     public function takeRdv(Etudiant $etudiant): Response
     {
-        $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findAll();
+        $rdvs = $this->getDoctrine()->getManager()->getRepository(Rdv::class)->findNotTaken();
         return $this->render('rdv/list.html.twig', [
             'idetud' => $etudiant->getId(),
             'rdvs' => $rdvs,

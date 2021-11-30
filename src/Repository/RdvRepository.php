@@ -46,6 +46,16 @@ class RdvRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findNotTaken()
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.etudiant IS null')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Rdv

@@ -6,6 +6,7 @@ use App\Entity\Etudiant;
 use App\Entity\Professeur;
 use App\Entity\Rdv;
 use App\Form\RdvType;
+use App\Service\RdvService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -41,7 +42,15 @@ class UserController extends AbstractController
             'professeurs' => $professeurs,
         ]);
     }
+    /**
+     * @Route("/listgen", name="userlistgen")
+     */
+    public function generateList(RdvService $rdvService): Response
+    {
 
+        $rdvService->generateStudentsAndTeachers();
+        return $this->showList();
+    }
     /**
      * @Route("/add", name="useradd")
      */
