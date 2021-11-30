@@ -15,7 +15,9 @@
         <h2>Etudiants</h2>
         {% for etudiant in etudiants %}
         <li>{{ etudiant.email }}
+            {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('rdv_take', {'id' : etudiant.id}) }}"> Vue étudiante</a>
+            {% endif %}
         </li>
         {% endfor %}
         {% endif %}

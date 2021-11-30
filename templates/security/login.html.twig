@@ -5,6 +5,7 @@
 {% block body %}
 
     {% include '/header.html.twig' %}
+    <div style="text-align: center">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -15,13 +16,13 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputId">Id</label>
-    <input type="text" value="{{ last_username }}" name="id" id="inputId" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
+    <br>
+    <label for="inputId">Email</label>
+    <input type="text" value="{{ last_username }}" name="id" id="inputId" class="form-control" autocomplete="username" required autofocus><br>
+    <br>
+    <label for="inputPassword">Mot de passe</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required><br>
+    <br>
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
@@ -41,4 +42,5 @@
         Sign in
     </button>
 </form>
+    </div>
 {% endblock %}

@@ -6,6 +6,11 @@
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
+            <style>
+            body{
+            margin : 0
+            }
+            </style>
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
@@ -13,7 +18,7 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
-    <body>
+    <body style="text-align: center">
         {% block body %}{% endblock %}
     </body>
 </html>

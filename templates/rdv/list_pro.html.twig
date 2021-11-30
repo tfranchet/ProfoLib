@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste RDV{% endblock %}
+
+{% block body %}
+    {% include '/header.html.twig' %}
+<div class="example-wrapper">
+    <ul>
+        {% for rdv in rdvs %}
+            {% if rdv.etudiant is not null %}
+            <li>Vous avez rendez-vous avec {{ rdv.etudiant.name }}<br>
+                Le {{ rdv.heureDebut.timestamp|date('d/m/y') }} de {{ rdv.heureDebut.timestamp|date('h:i') }} à {{ rdv.heureFin.timestamp|date('h:i') }}<br>
+                <button><a href="{{ path('rdv_decommand', {'id':rdv.id}) }}"> decommander le rdv</a>
+                </button></li>
+                {% else %}
+                    <li>Ce RDV n'a pas été pris<br>
+                        Le {{ rdv.heureDebut.timestamp|date('d/m/y') }} de {{ rdv.heureDebut.timestamp|date('h:i') }} à {{ rdv.heureFin.timestamp|date('h:i') }}<br>
+                        <button><a href="{{ path('rdv_rm', {'id':rdv.id}) }}"> supprimer le rdv</a>
+                        </button></li>
+                    {% endif %}
+
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
