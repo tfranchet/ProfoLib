@@ -4,7 +4,7 @@
 
 {% block body %}
     {% include '/header.html.twig' %}
-<div class="example-wrapper">
+<div>
     <ul>
         {% for rdv in rdvs %}
         <li>{{ rdv.professeur.name }} {{ rdv.heureDebut|date("H:i") }} - {{ rdv.heureFin|date("H:i m/d/Y") }}

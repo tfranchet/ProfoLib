@@ -12,44 +12,64 @@
 <div class="head">
     <div class="navigate">
         {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path("useradd") }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("useradd") }}">Creer un utilisateur</a> </h4>
+            <h4>Creer un utilisateur </h4>
         </div>
+        </a>
+        <a href="{{ path("userlist") }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("userlist") }}">Liste utilisateurs</a> </h4>
+            <h4>Liste utilisateurs </h4>
         </div>
+        </a>
         {% endif %}
         {% if is_granted('ROLE_ETUDIANT') %}
+        <a href="{{ path("rdv_take", {'id': app.user.profile.id}) }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("rdv_take", {'id': app.user.profile.id}) }}">Prendre rdv</a> </h4>
+            <h4>Prendre rdv </h4>
         </div>
-        <div class="navigate_button">
-            <h4><a href="{{ path("userlist") }}">Liste Professeurs</a> </h4>
-        </div>
+        </a>
+        <a href="{{ path("userlist") }}">
             <div class="navigate_button">
-            <h4><a href="{{ path("mesrdv", {'id': app.user.profile.id}) }}">Mes RDVs</a> </h4>
+            <h4>Liste Professeurs </h4>
         </div>
+        </a>
+        <a href="{{ path("mesrdv", {'id': app.user.profile.id}) }}">
+            <div class="navigate_button">
+            <h4>Mes RDVs </h4>
+        </div>
+        </a>
         {% endif %}
         {% if is_granted('ROLE_PROFESSEUR') %}
+        <a href="{{ path("rdv_add", {'id': app.user.profId.id}) }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("rdv_add", {'id': app.user.profId.id}) }}">Créer rdv</a> </h4>
+            <h4>Créer rdv </h4>
         </div>
+        </a>
+        <a href="{{ path("userlist") }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("userlist") }}">Liste utilisateurs</a> </h4>
+            <h4>Liste utilisateurs </h4>
         </div>
+        </a>
+        <a href="{{ path("mesrdv", {'id': app.user.profId.id}) }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("mesrdv", {'id': app.user.profId.id}) }}">Mes RDVs</a> </h4>
+            <h4>Mes RDVs </h4>
         </div>
-    </div>
+        </a>
         {% endif %}
+    </div>
     <div class="account">
         {% if app.user is null %}
+        <a href="{{ path("app_login") }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("app_login") }}">login</a> </h4>
+            <h4>login </h4>
         </div>
+        </a>
+        <a href="{{ path("add_account") }}">
         <div class="navigate_button">
-            <h4><a href="{{ path("add_account") }}">creer un compte</a> </h4>
+            <h4>creer un compte </h4>
         </div>
+        </a>
             {% else %}
                 <p>Vous etes connecter en tant que {{ app.user.email }}</p>
                 <div class="navigate_button">
